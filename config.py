@@ -1,8 +1,8 @@
-#from dotenv import load_dotenv
+from dotenv import load_dotenv
 import os
 
 # env 파일 로드
-#load_dotenv()
+load_dotenv()
 
 class Config:
     DB_HOST = os.environ.get('DB_HOST')
