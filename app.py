@@ -2,11 +2,10 @@
 from fastapi import FastAPI, Response, UploadFile, File
 from pydantic import BaseModel
 import pymysql
-from config import Config
 import model
+import config as con
  
 app = FastAPI()
-con = Config()
 # s3 = boto3.client('s3',
 #                   aws_access_key_id=con.AWS_ACCESS_KEY,
 #                   aws_secret_access_key=con.AWS_SECRET_KEY)
@@ -40,6 +39,14 @@ class Item(BaseModel):
 def create_guestbook(item: Item):
     new_id = model.add(item)
     return {"id": new_id, "name": item.name, "message": item.message}
+
+
+@app.get('/guestbook')
+def get_guestbook():
+    """
+    저장된 모든 데이터환 반환
+    """
+    results = model.get_all()
 
 
 if __name__ == '__main__':
